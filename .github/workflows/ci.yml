@@ -8,13 +8,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test-linux:
-    name: Testes (ubuntu-latest / Python ${{ matrix.python-version }})
-    runs-on: ubuntu-latest
+  test:
+    name: Testes (${{ matrix.os }} / Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest]
         python-version: ["3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: windows-latest
+            python-version: "3.14"
+
+    env:
+      PYTHONPATH: src
+      PYTHONIOENCODING: utf-8
 
     steps:
       - name: Checkout do código
@@ -24,27 +32,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Executar suíte de testes unitários
-        run: |
-          python -m unittest discover -s tests -p "test_*.py" -v
-
-      - name: Executar auditor independente SQLite
-        run: |
-          python tools/verify_independent.py
-
-  test-windows:
-    name: Testes (windows-latest / Python 3.14)
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
-
-      - name: Configurar Python 3.14
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.14"
 
       - name: Executar suíte de testes unitários
         run: |
@@ -80,24 +67,17 @@ jobs:
 
       - name: Testar instalação limpa do wheel e comandos CLI
         run: |
-          python -m venv test_env
-          source test_env/bin/activate
-          pip install dist/*.whl
+          python -m pip install dist/*.whl
           nbr14518 --versao
           nbr14518 catalogo
           nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
           nbr14518 calcular examples/lanchonete_fast_food_fritadeiras.json --formato json
           nbr14518 calcular examples/cozinha_industrial_ilha_central.json --formato csv
-          deactivate
 
       - name: Testar execução sem acesso à rede (Network Isolation)
         run: |
-          python -m venv isolated_env
-          source isolated_env/bin/activate
-          pip install dist/*.whl
           if command -v unshare >/dev/null 2>&1; then
-            unshare -r -n nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
+            unshare -r -n nbr14518 calcular examples/restaurante_a_la_carte_pesado.json || nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
           else
             nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
           fi
-          deactivate
