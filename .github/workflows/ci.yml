@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-linux:
+    name: Testes (ubuntu-latest / Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Executar suíte de testes unitários
+        run: |
+          python -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Executar auditor independente SQLite
+        run: |
+          python tools/verify_independent.py
+
+  test-windows:
+    name: Testes (windows-latest / Python 3.14)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Executar suíte de testes unitários
+        run: |
+          python -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Executar auditor independente SQLite
+        run: |
+          python tools/verify_independent.py
+
+  packaging:
+    name: Empacotamento e Verificação Isolada de Rede
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Instalar ferramentas de build
+        run: |
+          python -m pip install --upgrade pip build
+
+      - name: Construir distribuições (sdist e wheel)
+        run: |
+          python -m build
+
+      - name: Inspecionar e validar arquivos construídos
+        run: |
+          python scripts/check_distribution.py
+
+      - name: Testar instalação limpa do wheel e comandos CLI
+        run: |
+          python -m venv test_env
+          source test_env/bin/activate
+          pip install dist/*.whl
+          nbr14518 --versao
+          nbr14518 catalogo
+          nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
+          nbr14518 calcular examples/lanchonete_fast_food_fritadeiras.json --formato json
+          nbr14518 calcular examples/cozinha_industrial_ilha_central.json --formato csv
+          deactivate
+
+      - name: Testar execução sem acesso à rede (Network Isolation)
+        run: |
+          python -m venv isolated_env
+          source isolated_env/bin/activate
+          pip install dist/*.whl
+          if command -v unshare >/dev/null 2>&1; then
+            unshare -r -n nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
+          else
+            nbr14518 calcular examples/restaurante_a_la_carte_pesado.json
+          fi
+          deactivate

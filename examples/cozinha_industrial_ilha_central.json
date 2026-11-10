@@ -1,0 +1,51 @@
+{
+  "nome_projeto": "Complexo Hospitalar Central - Cozinha Industrial Bloco Ilha",
+  "localizacao": "Belo Horizonte - MG",
+  "tipo_coifa": "ilha",
+  "altura_montagem_m": "1.10",
+  "projecao_manual_m": "0.25",
+  "taxa_compensacao": "0.90",
+  "margem_seguranca": "0.10",
+  "equipamentos": [
+    {
+      "nome": "Caldeirão Basculante a Vapor 200L",
+      "severidade": "medio",
+      "potencia_kw": "30.00",
+      "comprimento_m": "1.40",
+      "largura_m": "1.10"
+    },
+    {
+      "nome": "Caldeirão Basculante a Vapor 200L",
+      "severidade": "medio",
+      "potencia_kw": "30.00",
+      "comprimento_m": "1.40",
+      "largura_m": "1.10"
+    },
+    {
+      "nome": "Forno Combinado 20 GN a Gás",
+      "severidade": "medio",
+      "potencia_kw": "28.00",
+      "comprimento_m": "1.10",
+      "largura_m": "1.00"
+    },
+    {
+      "nome": "Fogão Central 8 Queimadores Alta Pressão",
+      "severidade": "pesado",
+      "potencia_kw": "52.00",
+      "comprimento_m": "1.60",
+      "largura_m": "1.10"
+    }
+  ],
+  "duto": {
+    "comprimento_m": "22.00",
+    "quantidade_curvas_90": 3,
+    "quantidade_curvas_45": 2,
+    "tem_damper_corta_fogo": true,
+    "tipo_descarga": "saida_chapeu_chines"
+  },
+  "filtros": {
+    "tem_filtro_inercial": true,
+    "tem_filtro_eletrostatico": true,
+    "tem_filtro_carvao_ativado": true
+  }
+}

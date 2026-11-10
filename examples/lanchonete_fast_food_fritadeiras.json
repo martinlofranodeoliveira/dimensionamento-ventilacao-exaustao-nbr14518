@@ -1,0 +1,44 @@
+{
+  "nome_projeto": "Lanchonete Express Premium - Bateria de Fritadeiras e Chapas",
+  "localizacao": "Campinas - SP",
+  "tipo_coifa": "compensadora",
+  "altura_montagem_m": "1.00",
+  "projecao_manual_m": "0.15",
+  "taxa_compensacao": "0.85",
+  "margem_seguranca": "0.10",
+  "equipamentos": [
+    {
+      "nome": "Fritadeira Tripla de Alta Recuperação 3x20L",
+      "severidade": "pesado",
+      "potencia_kw": "48.00",
+      "comprimento_m": "1.20",
+      "largura_m": "0.80"
+    },
+    {
+      "nome": "Chapa Prensa Elétrica Espelhada 24 kW",
+      "severidade": "medio",
+      "potencia_kw": "24.00",
+      "comprimento_m": "0.90",
+      "largura_m": "0.80"
+    },
+    {
+      "nome": "Salamandra Elétrica de Finalização",
+      "severidade": "medio",
+      "potencia_kw": "6.00",
+      "comprimento_m": "0.60",
+      "largura_m": "0.50"
+    }
+  ],
+  "duto": {
+    "comprimento_m": "8.00",
+    "quantidade_curvas_90": 1,
+    "quantidade_curvas_45": 2,
+    "tem_damper_corta_fogo": true,
+    "tipo_descarga": "descarga_direta_veneziana"
+  },
+  "filtros": {
+    "tem_filtro_inercial": true,
+    "tem_filtro_eletrostatico": true,
+    "tem_filtro_carvao_ativado": false
+  }
+}

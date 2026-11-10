@@ -1,0 +1,51 @@
+{
+  "nome_projeto": "Restaurante Contemporâneo Jardins - Linha de Cocção Principal",
+  "localizacao": "São Paulo - SP",
+  "tipo_coifa": "parede",
+  "altura_montagem_m": "1.05",
+  "projecao_manual_m": "0.20",
+  "taxa_compensacao": "0.85",
+  "margem_seguranca": "0.10",
+  "equipamentos": [
+    {
+      "nome": "Fogão Industrial 6 Queimadores Abertos",
+      "severidade": "medio",
+      "potencia_kw": "36.00",
+      "comprimento_m": "1.20",
+      "largura_m": "0.85"
+    },
+    {
+      "nome": "Chapa Bifeteira Ranhurada a Gás",
+      "severidade": "medio",
+      "potencia_kw": "18.00",
+      "comprimento_m": "0.80",
+      "largura_m": "0.85"
+    },
+    {
+      "nome": "Charbroiler Pedra Vulcânica Alta Performance",
+      "severidade": "pesado",
+      "potencia_kw": "24.00",
+      "comprimento_m": "0.80",
+      "largura_m": "0.85"
+    },
+    {
+      "nome": "Fritadeira Alta Recuperação a Gás 28L",
+      "severidade": "pesado",
+      "potencia_kw": "22.00",
+      "comprimento_m": "0.45",
+      "largura_m": "0.85"
+    }
+  ],
+  "duto": {
+    "comprimento_m": "14.50",
+    "quantidade_curvas_90": 2,
+    "quantidade_curvas_45": 1,
+    "tem_damper_corta_fogo": true,
+    "tipo_descarga": "saida_chapeu_chines"
+  },
+  "filtros": {
+    "tem_filtro_inercial": true,
+    "tem_filtro_eletrostatico": false,
+    "tem_filtro_carvao_ativado": false
+  }
+}

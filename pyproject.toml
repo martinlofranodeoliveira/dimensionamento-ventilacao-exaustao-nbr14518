@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dimensionamento-ventilacao-exaustao-nbr14518"
+version = "1.0.0"
+description = "Dimensionamento analítico de sistemas de ventilação e exaustão para cozinhas profissionais conforme ABNT NBR 14518:2020."
+readme = "README.md"
+authors = [
+    { name = "Lofrano Tecnologia", email = "contato@lofranotecnologia.com.br" }
+]
+license = "MIT"
+requires-python = ">=3.11"
+keywords = [
+    "engenharia-mecanica",
+    "climatizacao",
+    "ventilacao",
+    "exaustao",
+    "cozinha-profissional",
+    "nbr14518",
+    "abnt",
+    "coifas",
+    "dutos-gordura",
+    "exaustores"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Manufacturing",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering",
+    "Typing :: Typed"
+]
+dependencies = []
+
+[project.scripts]
+nbr14518 = "ventilacao_nbr14518.cli:main"
+dimensionamento-ventilacao = "ventilacao_nbr14518.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
